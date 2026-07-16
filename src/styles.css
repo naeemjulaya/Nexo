@@ -4,6 +4,31 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ------------------------------------------------------------------ */
+/* Nexo — Android mockup palette (used inside phone frames only).       */
+/* Values are locked to the product design spec.                        */
+/* ------------------------------------------------------------------ */
+@theme inline {
+  --color-nx-bg: #0B0F14;
+  --color-nx-surface: #111820;
+  --color-nx-elevated: #17212B;
+  --color-nx-interactive: #1D2A35;
+  --color-nx-input: #141D25;
+  --color-nx-nav: #0F151C;
+  --color-nx-border: #263440;
+  --color-nx-text: #F3F6F8;
+  --color-nx-text2: #9AA8B5;
+  --color-nx-text3: #667582;
+  --color-nx-primary: #2DD4BF;
+  --color-nx-primary-ink: #07110F;
+  --color-nx-accent: #C7F36B;
+  --color-nx-success: #4ADE80;
+  --color-nx-warn: #F4BF50;
+  --color-nx-error: #F87171;
+  --color-nx-info: #60A5FA;
+  --font-nx: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+
 /*
  * Design system definition.
  *
