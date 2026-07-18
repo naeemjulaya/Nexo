@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { NexoMockups } from "@/components/nexo-mockups";
+import { MockupsGallery } from "@/components/gallery/MockupsGallery";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  return <NexoMockups />;
+  return <MockupsGallery />;
 }
