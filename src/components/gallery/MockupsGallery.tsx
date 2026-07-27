@@ -1,3 +1,5 @@
+import { useState } from "react";
+import type { NavTab } from "@/data/types";
 import { Chip, ContentItem, PhoneFrame } from "@/components/shared";
 import {
   BackupScreen,
@@ -24,7 +26,41 @@ import { libraryItems } from "@/data/mockData";
 import { Section } from "./Section";
 import { Swatch } from "./Swatch";
 
+interface MockupScreenItem {
+  id: string;
+  name: string;
+  category: string;
+  caption: string;
+  nav?: NavTab | null;
+  component: React.ComponentType;
+}
+
+const MOCKUP_SCREENS: MockupScreenItem[] = [
+  { id: "onboarding-1", name: "01 · Boas-vindas", category: "Onboarding", caption: "Visão geral e proposta de valor", nav: null, component: OnboardingStepOne },
+  { id: "onboarding-2", name: "02 · Fluxo de partilha", category: "Onboarding", caption: "Captura direta via sistema", nav: null, component: OnboardingStepTwo },
+  { id: "onboarding-3", name: "03 · Encontrar mais tarde", category: "Onboarding", caption: "Organização e pesquisa", nav: null, component: OnboardingStepThree },
+  { id: "library", name: "Biblioteca", category: "Principais", caption: "248 itens · filtros rápidos", nav: "library", component: LibraryScreen },
+  { id: "quick-capture", name: "Captura rápida", category: "Principais", caption: "bottom sheet · um toque para guardar", nav: null, component: QuickCaptureScreen },
+  { id: "organize", name: "Organizar", category: "Principais", caption: "opcional · nota pessoal em destaque", nav: null, component: OrganizeContentScreen },
+  { id: "content-details", name: "Detalhes do conteúdo", category: "Principais", caption: "ação principal: abrir original", nav: null, component: ContentDetailsScreen },
+  { id: "search", name: "Pesquisa", category: "Principais", caption: "filtros ativos + resultados", nav: "search", component: SearchScreen },
+  { id: "collections", name: "Coleções", category: "Principais", caption: "grelha compacta e consistente", nav: "collections", component: CollectionsScreen },
+  { id: "collection-details", name: "Detalhes da coleção", category: "Principais", caption: "42 itens · Ideias para conteúdo", nav: null, component: CollectionDetailsScreen },
+  { id: "review", name: "Revisão", category: "Principais", caption: "12 conteúdos · progresso 3/12", nav: "review", component: ReviewScreen },
+  { id: "content-saved", name: "Guardado com sucesso", category: "Principais", caption: "snackbar + item recém-guardado", nav: "library", component: ContentSavedScreen },
+  { id: "backup", name: "Backup e exportação", category: "Definições", caption: "ficheiro local · JSON ou CSV", nav: null, component: BackupScreen },
+  { id: "settings", name: "Configurações", category: "Definições", caption: "agrupadas por área", nav: null, component: SettingsScreen },
+  { id: "update-available", name: "Atualização disponível", category: "Definições", caption: "diálogo com changelog", nav: null, component: UpdateAvailableDialog },
+  { id: "duplicate", name: "Conteúdo duplicado", category: "Estados", caption: "ação principal: ver existente", nav: null, component: DuplicateContentDialog },
+  { id: "offline", name: "Sem ligação", category: "Estados", caption: "biblioteca continua acessível", nav: "library", component: OfflineScreen },
+  { id: "empty-inbox", name: "Caixa de entrada vazia", category: "Estados", caption: "ação: adicionar link manual", nav: "library", component: EmptyInboxScreen },
+  { id: "unavailable", name: "Conteúdo indisponível", category: "Estados", caption: "notas preservadas · substituir link", nav: null, component: UnavailableContentScreen },
+];
+
 export function MockupsGallery() {
+  const [selectedScreenId, setSelectedScreenId] = useState<string>("library");
+  const selectedItem = MOCKUP_SCREENS.find((s) => s.id === selectedScreenId) || MOCKUP_SCREENS[3];
+  const SelectedComponent = selectedItem.component;
   return (
     <main
       className="min-h-screen text-white"
@@ -72,6 +108,78 @@ export function MockupsGallery() {
           </span>
         </div>
       </header>
+
+      {/* Interactive Simulator Section */}
+      <Section
+        eyebrow="Simulador Interativo"
+        title="Inspeciona cada interface mobile individualmente."
+        desc="Seleciona qualquer uma das 19 telas independentes para visualizar e interagir no simulador Android abaixo."
+      >
+        <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-md">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+            {/* Screen Selector List */}
+            <div className="flex-1 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                  Selecionar Interface
+                </span>
+                <span className="rounded-full bg-nx-primary/20 px-2.5 py-0.5 text-[11px] font-medium text-nx-primary">
+                  19 Interfaces Disponíveis
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {MOCKUP_SCREENS.map((screen) => {
+                  const isSelected = screen.id === selectedScreenId;
+                  return (
+                    <button
+                      key={screen.id}
+                      onClick={() => setSelectedScreenId(screen.id)}
+                      className={
+                        "flex flex-col items-start rounded-xl p-3 text-left transition-all " +
+                        (isSelected
+                          ? "border border-nx-primary/60 bg-nx-primary/10 text-white shadow-lg"
+                          : "border border-white/5 bg-white/[0.02] text-white/70 hover:border-white/20 hover:bg-white/[0.04]")
+                      }
+                    >
+                      <div className="flex w-full items-center justify-between">
+                        <span
+                          className={
+                            "text-[10px] uppercase font-semibold tracking-wider " +
+                            (isSelected ? "text-nx-primary" : "text-white/40")
+                          }
+                        >
+                          {screen.category}
+                        </span>
+                        {isSelected && (
+                          <span className="h-2 w-2 rounded-full bg-nx-primary"></span>
+                        )}
+                      </div>
+                      <span className="mt-1 text-[13px] font-semibold text-white">
+                        {screen.name}
+                      </span>
+                      <span className="mt-0.5 text-[11px] text-white/50 line-clamp-1">
+                        {screen.caption}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Phone Frame Simulator Preview */}
+            <div className="flex flex-col items-center lg:sticky lg:top-8">
+              <PhoneFrame
+                label={selectedItem.name}
+                caption={selectedItem.caption}
+                nav={selectedItem.nav}
+              >
+                <SelectedComponent />
+              </PhoneFrame>
+            </div>
+          </div>
+        </div>
+      </Section>
 
       <Section
         eyebrow="01 · Paleta"
