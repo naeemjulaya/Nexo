@@ -1,12 +1,12 @@
 {
-  "tag_name": "v0.2.4",
-  "name": "Nexo 0.2.4",
-  "body": "[obrigatoria]\n\nLetras e botões maiores, edição direta ao tocar, coleções e etiquetas visíveis, identificação da plataforma e melhor obtenção de título e capa. Atualização obrigatória com 24 horas de preparação.",
-  "html_url": "https://github.com/naeemjulaya/deep-link-keeper/releases/tag/v0.2.4",
+  "tag_name": "v0.2.5",
+  "name": "Nexo 0.2.5",
+  "body": "[obrigatoria]\n\nCorreção: remove símbolos improvisados e usa somente o ícone oficial fornecido pelas aplicações instaladas no telefone. Se não estiver disponível, mostra apenas o nome da plataforma. Atualização obrigatória com 24 horas de preparação.",
+  "html_url": "https://github.com/naeemjulaya/deep-link-keeper/releases/tag/v0.2.5",
   "assets": [
     {
-      "name": "Nexo-v0.2.4.apk",
-      "browser_download_url": "https://github.com/naeemjulaya/deep-link-keeper/releases/download/v0.2.4/Nexo-v0.2.4.apk"
+      "name": "Nexo-v0.2.5.apk",
+      "browser_download_url": "https://github.com/naeemjulaya/deep-link-keeper/releases/download/v0.2.5/Nexo-v0.2.5.apk"
     }
   ]
 }
